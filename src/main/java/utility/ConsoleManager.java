@@ -59,7 +59,7 @@ public class ConsoleManager {
         String[] command;
         boolean isReadable = true;
         Scanner temp = labWorkAsker.getUserScanner();
-
+//
         try {
             File file = new File(argument);
             if (file.exists() && !file.canRead()) {
