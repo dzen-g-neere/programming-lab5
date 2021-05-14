@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+}
+
+group 'org.dmitriyz'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+apply plugin: 'java-library'
+
+jar {
+    manifest {
+        attributes(
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': 'run.Main'
+        )
+    }
+    // You can reference any part of the dependency configurations,
+    // and you can have as many from statements as you need
+    from configurations.compile
+    // I just copied them into the top of the jar, so it looks like the eclipse exported
+    // runnable jar, but you could designate a lib directory, and reference that in the
+    // classpath as "lib/$it.name" instead of it.getName()
+    into ''
+}
